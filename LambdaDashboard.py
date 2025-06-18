@@ -9,7 +9,11 @@ import plotly.graph_objects as go
 import requests
 
 # --- Streamlit Setup ---
-st.set_page_config(page_title="LambdaEdge - Fault Event Dashboard", layout="wide")
+st.set_page_config(
+    page_title="LambdaEdge - Fault Event Dashboard",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 st_autorefresh(interval=60 * 1000, key="datarefresh")  # Refresh every 60 seconds
 st.title("📊 LambdaEdge - Fault Event Dashboard")
 st.markdown("This App Manages Equipment Health in Real-Time and Use to Visualise Process Variables Loaded from DynamoDB logs.")
