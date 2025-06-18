@@ -197,13 +197,16 @@ def get_prediction(device_id, temp, vib):
 
     except ValueError as e:
         return {"error": f"JSON decoding failed: {e}"}
+    
+# === Predictive Inference UI Handler (Auto-refresh version) ===
+with st.expander("🔍 Run Predictive Inference", expanded=True):
+    col1, col2 = st.columns(2)
 
-# === Predictive Inference UI Handler ===
-with st.expander("🔍 Run Predictive Inference"):
-    selected_device = st.selectbox("Select Device", df["device_id"].unique())
-    selected_data = df[df["device_id"] == selected_device].iloc[-1]
+    with col1:
+        selected_device = st.selectbox("Select Device", df["device_id"].unique())
+        selected_data = df[df["device_id"] == selected_device].iloc[-1]
 
-    if st.button("🚀 Run Inference"):
+        # Automatically run inference
         result = get_prediction(
             device_id=selected_device,
             temp=selected_data["temperature"],
@@ -229,15 +232,13 @@ with st.expander("🔍 Run Predictive Inference"):
                 unsafe_allow_html=True
             )
 
-            # 📊 Streamlit-ECharts Risk Score Gauge
+    with col2:
+        if "risk_score" in result:
             st.subheader("📊 Risk Score Gauge")
-
             from streamlit_echarts import st_echarts
 
             gauge_options = {
-                "tooltip": {
-                    "formatter": "{a} <br/>{b} : {c}"
-                },
+                "tooltip": {"formatter": "{a} <br/>{b} : {c}"},
                 "series": [
                     {
                         "name": "Risk Score",
@@ -248,9 +249,9 @@ with st.expander("🔍 Run Predictive Inference"):
                         "axisLine": {
                             "lineStyle": {
                                 "color": [
-                                    [0.3, "#91cc75"],   # Green: Low risk
-                                    [0.7, "#fac858"],   # Yellow: Medium risk
-                                    [1, "#ee6666"]      # Red: High risk
+                                    [0.3, "#91cc75"],  # Low
+                                    [0.7, "#fac858"],  # Medium
+                                    [1.0, "#ee6666"]   # High
                                 ],
                                 "width": 20
                             }
