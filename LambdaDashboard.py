@@ -3,6 +3,7 @@ import boto3
 from datetime import datetime, timezone, timedelta
 import pandas as pd
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
+from streamlit_echarts import st_echarts
 from decimal import Decimal
 from streamlit_autorefresh import st_autorefresh
 import plotly.graph_objects as go
@@ -227,3 +228,36 @@ with st.expander("🔍 Run Predictive Inference"):
                 f"</div>",
                 unsafe_allow_html=True
             )
+
+            # 📊 Streamlit-ECharts Risk Score Gauge
+            st.subheader("📊 Risk Score Gauge")
+
+            from streamlit_echarts import st_echarts
+
+            gauge_options = {
+                "tooltip": {
+                    "formatter": "{a} <br/>{b} : {c}"
+                },
+                "series": [
+                    {
+                        "name": "Risk Score",
+                        "type": "gauge",
+                        "min": 0,
+                        "max": 100,
+                        "detail": {"formatter": "{value}"},
+                        "axisLine": {
+                            "lineStyle": {
+                                "color": [
+                                    [0.3, "#91cc75"],   # Green: Low risk
+                                    [0.7, "#fac858"],   # Yellow: Medium risk
+                                    [1, "#ee6666"]      # Red: High risk
+                                ],
+                                "width": 20
+                            }
+                        },
+                        "data": [{"value": result["risk_score"], "name": "Risk"}]
+                    }
+                ]
+            }
+
+            st_echarts(options=gauge_options, height="350px")
