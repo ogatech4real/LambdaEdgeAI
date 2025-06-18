@@ -20,10 +20,15 @@ time_window = st.sidebar.slider("Time window (minutes)", 5, 240, 60)
 
 # --- Initialize DynamoDB ---
 try:
-    dynamodb = boto3.resource('dynamodb', region_name='eu-north-1')
+    session = boto3.Session(
+        aws_access_key_id=st.secrets["aws"]["aws_access_key_id"],
+        aws_secret_access_key=st.secrets["aws"]["aws_secret_access_key"],
+        region_name=st.secrets["aws"]["region"]
+    )
+    dynamodb = session.resource('dynamodb')
     table = dynamodb.Table('FaultEventLog')
-except (NoCredentialsError, PartialCredentialsError):
-    st.error("❌ AWS credentials not found.")
+except (NoCredentialsError, PartialCredentialsError, KeyError):
+    st.error("❌ AWS credentials not found in Streamlit secrets.")
     st.stop()
 
 # --- Helper: Safe conversion ---
