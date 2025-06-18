@@ -148,7 +148,7 @@ fig_vib = go.Figure(go.Indicator(
     mode="gauge+number",
     value=latest['vibration'],
     title={'text': "Vibration (mm/s)"},
-    gauge={'axis': {'range': [0, 0.5]}, 'bar': {'color': "#33C3FF"}}
+    gauge={'axis': {'range': [0, 0.2]}, 'bar': {'color': "#33C3FF"}}
 ))
 g1.plotly_chart(fig_temp, use_container_width=True)
 g2.plotly_chart(fig_vib, use_container_width=True)
