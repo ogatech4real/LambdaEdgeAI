@@ -1,3 +1,4 @@
+
 import streamlit as st
 import boto3
 from datetime import datetime, timezone, timedelta
@@ -204,60 +205,60 @@ with st.expander("🔍 Run Predictive Inference"):
     selected_data = df[df["device_id"] == selected_device].iloc[-1]
 
     if st.button("🚀 Run Inference"):
-    result = get_prediction(
-        device_id=selected_device,
-        temp=selected_data["temperature"],
-        vib=selected_data["vibration"]
-    )
-
-    if "error" in result:
-        st.error(result["error"])
-        if "raw" in result:
-            st.json(result["raw"])
-    else:
-        # Display Metrics
-        st.metric("Risk Score", result["risk_score"])
-        st.metric("Confidence", result["confidence"])
-        st.metric("Failure Mode", result["failure_mode"])
-
-        # Color-coded result display
-        color = "red" if result["prediction"] == "High Risk" else "green"
-        st.markdown(
-            f"<div style='background-color:{color};padding:15px;border-radius:10px;color:white;font-weight:bold;text-align:center;'>"
-            f"Prediction: {result['prediction']}<br>Risk Score: {result['risk_score']}"
-            f"</div>",
-            unsafe_allow_html=True
+        result = get_prediction(
+            device_id=selected_device,
+            temp=selected_data["temperature"],
+            vib=selected_data["vibration"]
         )
 
-        # 📊 Streamlit-ECharts Risk Score Gauge
-        st.subheader("📊 Risk Score Gauge")
+        if "error" in result:
+            st.error(result["error"])
+            if "raw" in result:
+                st.json(result["raw"])
+        else:
+            # Display Metrics
+            st.metric("Risk Score", result["risk_score"])
+            st.metric("Confidence", result["confidence"])
+            st.metric("Failure Mode", result["failure_mode"])
 
-        from streamlit_echarts import st_echarts
+            # Color-coded result display
+            color = "red" if result["prediction"] == "High Risk" else "green"
+            st.markdown(
+                f"<div style='background-color:{color};padding:15px;border-radius:10px;color:white;font-weight:bold;text-align:center;'>"
+                f"Prediction: {result['prediction']}<br>Risk Score: {result['risk_score']}"
+                f"</div>",
+                unsafe_allow_html=True
+            )
 
-        gauge_options = {
-            "tooltip": {
-                "formatter": "{a} <br/>{b} : {c}"
-            },
-            "series": [
-                {
-                    "name": "Risk Score",
-                    "type": "gauge",
-                    "min": 0,
-                    "max": 100,
-                    "detail": {"formatter": "{value}"},
-                    "axisLine": {
-                        "lineStyle": {
-                            "color": [
-                                [0.3, "#91cc75"],   # Green: Low risk
-                                [0.7, "#fac858"],   # Yellow: Medium risk
-                                [1, "#ee6666"]      # Red: High risk
-                            ],
-                            "width": 20
-                        }
-                    },
-                    "data": [{"value": result["risk_score"], "name": "Risk"}]
-                }
-            ]
-        }
+            # 📊 Streamlit-ECharts Risk Score Gauge
+            st.subheader("📊 Risk Score Gauge")
 
-        st_echarts(options=gauge_options, height="350px")
+            from streamlit_echarts import st_echarts
+
+            gauge_options = {
+                "tooltip": {
+                    "formatter": "{a} <br/>{b} : {c}"
+                },
+                "series": [
+                    {
+                        "name": "Risk Score",
+                        "type": "gauge",
+                        "min": 0,
+                        "max": 100,
+                        "detail": {"formatter": "{value}"},
+                        "axisLine": {
+                            "lineStyle": {
+                                "color": [
+                                    [0.3, "#91cc75"],   # Green: Low risk
+                                    [0.7, "#fac858"],   # Yellow: Medium risk
+                                    [1, "#ee6666"]      # Red: High risk
+                                ],
+                                "width": 20
+                            }
+                        },
+                        "data": [{"value": result["risk_score"], "name": "Risk"}]
+                    }
+                ]
+            }
+
+            st_echarts(options=gauge_options, height="350px")
