@@ -8,6 +8,10 @@
 
 The system also integrates a **predictive AI engine** via AWS Lambda to detect anomaly risks and estimate failure probabilities, enabling proactive maintenance decisions.
 
+At the core of the solution is a Lambda function that simulates telemetry data from three virtual industrial devices. These devices represent real-world machines, and the simulated data includes critical process variables such as temperature, vibration, and operational status. The Lambda function is triggered automatically every minute using Amazon EventBridge, ensuring continuous data generation. While this simulation provides a development-friendly way to model the system, it also mirrors how real telemetry could be ingested using AWS IoT Core. In a production scenario, physical devices can publish sensor data via MQTT over edge gateways, and AWS IoT Core would route this data into the same backend pipeline. This demonstrates how easily this solution can scale from simulation to real-world deployments.
+
+All telemetry data is persistently stored in a DynamoDB table. From there, it becomes the basis for diagnostics and visualization. Threshold logic built into the Lambda simulator reflects real-world maintenance practices. For temperatures exceeding 80°C and vibration levels above 2.5 mm/s are red flags for conditions like bearing failure or early misalignment, which is triggered. These values aren’t random; they reflect the kinds of metrics engineers closely monitor in predictive maintenance programs.
+
 ---
 
 ## Features
