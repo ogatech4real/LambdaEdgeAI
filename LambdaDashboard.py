@@ -175,6 +175,7 @@ else:
 # === Section 5: Lambda Predictive Inference Handler ===
 st.subheader("🤖 Predictive Diagnostics")
 st.info("This section displays ML-inferred anomaly risks and failure probabilities.")
+st.markdown("Click to "Run Predictive Inference" and Select Device to "Run the Interphase" and view the "Risk Score"")
 def get_prediction(device_id, temp, vib):
     try:
         endpoint = "https://oh7n7tfwa2kiy2gpxgpjcdrz6q0cpdox.lambda-url.eu-north-1.on.aws/"
