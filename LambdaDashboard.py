@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-st_autorefresh(interval=60 * 1000, key="datarefresh")  # Refresh every 60 seconds
+st_autorefresh(interval=2.5 * 60 * 1000, key="datarefresh")  # Refresh every 2.5 mins
 st.title("📊 LambdaEdge - Fault Event Dashboard")
 st.markdown("This App Manages Equipment Health in Real-Time and Use to Visualise Process Variables Loaded from DynamoDB logs.")
 
