@@ -6,11 +6,11 @@
 
 **LambdaEdge** is a real-time, serverless **predictive fault monitoring system** for industrial assets. It ingests telemetry data (temperature, vibration) from edge devices, logs it to AWS DynamoDB, and visualizes the data through a live Streamlit dashboard.
 
+At the core of the solution is a Lambda function that simulates the telemetry data from three virtual industrial devices. These devices represent real-world machines, and the simulated data includes critical process variables such as temperature, vibration, and operational status. The Lambda function is triggered automatically every minute using Amazon EventBridge, ensuring continuous data generation. While this simulation provides a development-friendly way to model the system, it also mirrors how real telemetry could be ingested using AWS IoT Core. In a production scenario, physical devices can publish sensor data via MQTT over edge gateways, and AWS IoT Core would route this data into the same backend pipeline. This demonstrates how easily this solution can scale from simulation to real-world deployments.
+
+All telemetry data is persistently stored in a DynamoDB table. From there, it becomes the basis for diagnostics and visualization. Threshold logic built into the Lambda simulator reflects real-world maintenance practices. For temperatures exceeding 80°C and vibration levels above 2.5 mm/s, red flags for conditions like bearing failure or early misalignment are triggered. These values aren’t random; they reflect the kinds of metrics engineers closely monitor in predictive maintenance programs.
+
 The system also integrates a **predictive AI engine** via AWS Lambda to detect anomaly risks and estimate failure probabilities, enabling proactive maintenance decisions.
-
-At the core of the solution is a Lambda function that simulates telemetry data from three virtual industrial devices. These devices represent real-world machines, and the simulated data includes critical process variables such as temperature, vibration, and operational status. The Lambda function is triggered automatically every minute using Amazon EventBridge, ensuring continuous data generation. While this simulation provides a development-friendly way to model the system, it also mirrors how real telemetry could be ingested using AWS IoT Core. In a production scenario, physical devices can publish sensor data via MQTT over edge gateways, and AWS IoT Core would route this data into the same backend pipeline. This demonstrates how easily this solution can scale from simulation to real-world deployments.
-
-All telemetry data is persistently stored in a DynamoDB table. From there, it becomes the basis for diagnostics and visualization. Threshold logic built into the Lambda simulator reflects real-world maintenance practices. For temperatures exceeding 80°C and vibration levels above 2.5 mm/s are red flags for conditions like bearing failure or early misalignment, which is triggered. These values aren’t random; they reflect the kinds of metrics engineers closely monitor in predictive maintenance programs.
 
 ---
 
@@ -51,7 +51,7 @@ All telemetry data is persistently stored in a DynamoDB table. From there, it be
          ↓
 [Streamlit Dashboard ↔ Lambda Inference API (on-demand)]
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component         | Tech/Service              |
 |------------------|---------------------------|
@@ -69,14 +69,14 @@ All telemetry data is persistently stored in a DynamoDB table. From there, it be
 
 ### 1. Clone the Repo
 
-```bash
-git clone https://github.com/yourusername/lambdaedge-dashboard.git
-cd lambdaedge-dashboard
+```cmd
+git clone https://github.com/yourusername/lambdaedge-dashboard.git](https://github.com/ogatech4real/LambdaEdgeAI.git
+cd LambdaDashboard.py
 ```
 
 ### 2. Install Requirements
 
-```bash
+```cmd
 pip install -r requirements.txt
 ```
 
@@ -84,13 +84,13 @@ pip install -r requirements.txt
 
 Make sure your environment is configured with access to `eu-north-1` and has permission to access the `FaultEventLog` DynamoDB table.
 
-```bash
+```cmd
 aws configure
 ```
 
 ### 4. Run the Dashboard
 
-```bash
+```cmd
 streamlit run app.py
 ```
 
@@ -116,18 +116,6 @@ streamlit run app.py
 
 ---
 
-## UI Output – Metrics & Visuals
-
-| Metric        | Widget Type       | Description                            |
-|---------------|-------------------|----------------------------------------|
-| Prediction    | Colored HTML card | Displays "High Risk", "Low Risk", etc. |
-| Risk Score    | `st.metric()`     | Value between 0–100                    |
-| Confidence    | `st.metric()`     | Probability (0.0–1.0)                  |
-| Failure Mode  | `st.metric()`     | Textual fault diagnosis                |
-| Status Card   | Styled Markdown   | Red or green background                |
-
----
-
 ## Result Variants (Examples)
 
 | Conditions                  | Prediction    | Risk Score | Confidence | Failure Mode       |
@@ -142,22 +130,14 @@ streamlit run app.py
 
 ---
 
-## 🚀 Planned Enhancements
+## Planned Enhancements
 
-| Feature                   | Benefit                                         |
-|---------------------------|--------------------------------------------------|
-| `streamlit-echarts` gauge | Visualize `risk_score` in a dynamic gauge       |
-| Cache inference responses | Reduce redundant Lambda calls                   |
-| Model selection dropdown  | Support multiple ML models per device           |
-| Risk trend graph          | Time-series view of risk levels per device      |
-
----
-
-## Demo Video
-
- **Watch Demo Video**  
-*(3 minutes – shows data flow, dashboard, and predictive insight in action)*
-
+- Integrate **machine learning models** (e.g. with Amazon SageMaker or TinyML in Lambda)
+- Support **real industrial protocols** like MQTT, OPC-UA, or Modbus
+- Extend the dashboard with **MongoDB Charts** or **Grafana cloud integration**
+- Add authentication and role-based views for different user types (engineers, managers)
+- Package as a reusable template for manufacturers, plant operators, and AI startups
+  
 ---
 
 ## AWS Services Used
@@ -172,26 +152,11 @@ streamlit run app.py
 
 ---
 
-## Sample Output
-
-> *(Add a screenshot of your dashboard here if needed)*
-
----
-
 ## 👤 Author
 
 **Adewale**  
-[LinkedIn Profile](https://www.linkedin.com/in/your-profile)  
-Built for the **[AWS Lambda Hackathon 2025](https://devpost.com/hackathons)**
-
----
-
-## 🏁 Submission Info
-
-- 🔗 Public Code: [GitHub Repo](https://github.com/yourusername/lambdaedge-dashboard)  
-- 📹 Video Demo: [YouTube](https://youtube.com/link-to-your-video)  
-- 🛠 AWS Used: Lambda, EventBridge, DynamoDB, Streamlit  
-- 🗓 Submitted: June 2025  
+[LinkedIn Profile](https://www.linkedin.com/in/ogabiadewale/)  
+Built for the **[AWS Lambda Hackathon 2025](https://devpost.com/hackathons](https://devpost.com/software/lambdaedge-ai?ref_content=my-projects-tab&ref_feature=my_projects)**
 
 ---
 
