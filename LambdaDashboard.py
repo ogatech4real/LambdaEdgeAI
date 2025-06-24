@@ -17,7 +17,7 @@ st.set_page_config(
 )
 st_autorefresh(interval=1.5 * 60 * 1000, key="datarefresh")  # Refresh every 2.5 mins
 st.title("📊 LambdaEdge - Fault Event Dashboard")
-st.markdown("This App Manages Equipment Health in Real-Time and Use to Visualise Process Variables Loaded from DynamoDB logs.")
+st.markdown("This App Manages Equipment Health in Real-Time and the Visualise Process Variables Loaded from DynamoDB logs. Read more: https://shorturl.at/VE40Z")
 
 # --- Sidebar Filters ---
 st.sidebar.header("🔍 Select Range")
@@ -265,3 +265,15 @@ with st.expander("🔍 Run Predictive Inference"):
             }
 
             st_echarts(options=gauge_options, height="350px")
+
+# === Footer Section ===
+st.markdown("---")
+st.markdown(
+    """
+    <div style='text-align: center; font-size: 14px;'>
+        Developed by <strong>Adewale Ogabi</strong> | 
+        <a href='https://www.linkedin.com/in/ogabiadewale' target='_blank'>LinkedIn Profile</a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
