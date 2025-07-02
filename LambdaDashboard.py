@@ -17,7 +17,7 @@ st.set_page_config(
 )
 st_autorefresh(interval=1.5 * 60 * 1000, key="datarefresh")  # Refresh every 2.5 mins
 st.title("📊 LambdaEdge - Fault Event Dashboard")
-st.markdown("LambdaEdge is a real-time, serverless predictive fault diagnostics system that simulates industrial telemetry, logs it to AWS DynamoDB, and visualizes live fault detection and AI-driven risk analysis via a Streamlit dashboard. Read more: https://shorturl.at/VE40Z")
+st.caption("LambdaEdge is a real-time, serverless predictive fault diagnostics system that simulates industrial telemetry, logs it to AWS DynamoDB, and visualizes live fault detection and AI-driven risk analysis via a Streamlit dashboard. Read more: https://shorturl.at/VE40Z")
 
 # --- Sidebar Filters ---
 st.sidebar.header("🔍 Select Range")
