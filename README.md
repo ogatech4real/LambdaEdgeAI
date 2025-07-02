@@ -17,7 +17,6 @@ The system also integrates a **predictive AI engine** via AWS Lambda to detect a
 ## Try it out" links
 
 https://lambdaedge-ai.streamlit.app/
-https://github.com/ogatech4real/LambdaEdgeAI
 
 ---
 
